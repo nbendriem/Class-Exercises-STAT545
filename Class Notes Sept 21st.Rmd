@@ -12,7 +12,8 @@ output:
     html_document:
         toc: true
 ---
-
+library(gapminder)
+library(tidyverse)
 ```{r}
 suppressPackageStartupMessages(library(tidyverse))  # The tidyverse contains ggplot2!
 suppressPackageStartupMessages(library(gapminder))
@@ -138,6 +139,7 @@ __Exercises__:
 p2 <- ggplot(gapminder, aes(x=gdpPercap,y= lifeExp))
 p2+geom_point()
 ```
+p2 <- ggplot(gapminder, aes(x=gdpPercap,y= lifeExp))
 
 ```{r}
 p2 <- ggplot(gapminder, 
