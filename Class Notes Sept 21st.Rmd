@@ -136,7 +136,7 @@ __Exercises__:
 1. Make a scatterplot of `gdpPercap` vs `lifeExp`. Store it in a variable called `p2`.
 
 ```{r}
-p2 <- ggplot(gapminder, aes(x=gdpPercap,y= lifeExp))
+p2 <- ggplot(gapminder, aes(x=log(gdpPercap),y= lifeExp))
 p2+geom_point()
 ```
 p2 <- ggplot(gapminder, aes(x=gdpPercap,y= lifeExp))
@@ -160,7 +160,15 @@ p2 + geom_point(aes(size=year,
 
 3. To `p2`, colour the points by `continent`. but this time with year being represented by the size of the points.
 
+```{r}
+p2+geom_point(aes(colour=continent, size=year))
+```
+
+
 4. To `p2`, add another layer called `scale_x_log10()`. Make a second plot by redoing the plot in (1), but replacing `gdpPercap` with `log10(gdpPercap)`. What do you notice?
+```{r}
+p2+geom_point() + scale_x_log10()
+```
 
 ## Continuation of `ggplot2`
 
