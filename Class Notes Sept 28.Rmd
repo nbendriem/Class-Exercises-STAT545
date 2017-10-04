@@ -408,8 +408,11 @@ __Exercise 1__: Suppose we want to calculate some quantity for each country in t
 gapminder %>% group_by(country) %>% summarize(pop_growth=pop[year==1972]-pop[year==1962])
                                                     
 
-gapminder %>% group_by(country) %>% mutate(pop_bill = pop/1000000000)
+gapminder %>% mutate(pop_bill = pop/1000000000)
 
+
+
+gapminder %>% group_by(country) %>% mutate(lag_gdpPercap = lag(gdpPercap)) %>% filter(!is.na(lag_gdpPercap))
 
 
 
@@ -430,3 +433,8 @@ __Exercise 2__: For the `gapminder` dataset, make a spaghetti plot showing the p
 - Only label the x axis with years 1950, 1975, and 2000.
 - Move the colour scale to the bottom.
 - Rename the colour legend
+
+```{r}
+gapminder %>% group_by(country) %>% mutate(max_gdpPercap=max(gdpPercap)) %>% ggplot(aes(year, pop/10^6)) + facet_wrap(~ continent) + geom_line(aes(group=country, colour=log(max_gdpPercap)), alpha=.25) + scale_x_continious("", breaks =c(1950, 1975, 2000)) + scale_colour_continous("log Maximum/nGPD per Cap.") + scale_y_log10("population(millions)"), breaks=c(0.1, 1, 10, 100, 1000),  + labs=c(0.1,1,10,100)) + labs(title="Population Trends") + theme(axis.text.x=element_text(angle=90), plot.title= element_text(hjust(0.5), legend.posotion= "bottom")
+```
+
