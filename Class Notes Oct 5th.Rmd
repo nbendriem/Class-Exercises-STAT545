@@ -1,0 +1,82 @@
+---
+title: "Class Notes Oct 5th"
+author: "Nathan Bendriem"
+date: "October 5, 2017"
+output: html_document
+---
+
+```{r}
+left_join()
+inner_join()
+full_join()
+semi_join()
+
+library(tidyverse)
+```
+```{r}
+install.packages("devtools")
+library(devtools)
+install_github("JoeyBernhardt/singer")
+
+```
+```{r}
+library(singer)
+data("locations")
+data("songs")
+```
+
+```{r}
+glimpse(songs)
+glimpse(locations)
+songs
+knitr::kable(songs)
+```
+```{r}
+View(songs)
+View(locations)
+```
+
+```{r}
+right_join(songs, locations)
+right_join(locations, songs)
+left_join(songs, locations)
+left_join(locations, songs) %>% arrange(release, )
+
+full_join(locations, songs) %>% select(release, artist_name, year) %>% knitr::kable()
+
+X <- inner_join(songs, locations, by = "title") %>% select(release, artist_name.x, year)
+
+## Challenge
+
+get the number of releases per year
+
+```{r}
+inner_join(songs, locations, by = "title") %>% count(year)
+```
+
+##RESHAPING
+
+```{r}
+data("singer_locations")
+
+
+```
+**WIDE** dataframe
+**LONG** dataframe
+```{r}
+hfd_y <- singer_locations %>% select(year, artist_hotttnesss, artist_familiarity, duration)
+hfd_y %>% filter(year > 1900) %>% ggplot(aes(x=year, y= duration)) + geom_line()
+```
+package 'tidyr', 'gather()' : from wide to long
+
+```{r}
+hfd_y_long <- hfd_y %>% gather(key= "Measure", value= "Units", artist_hotttnesss:duration)
+View(hfd_y_long)
+
+hfd_y_long %>% filter(year > 1900) %>%  ggplot(aes(x=year, y=Units)) + geom_point() + facet_wrap(~ Measure)
+```
+
+
+```
+
+
